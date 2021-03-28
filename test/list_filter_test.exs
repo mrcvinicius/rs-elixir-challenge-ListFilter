@@ -1,8 +1,13 @@
 defmodule ListFilterTest do
   use ExUnit.Case
-  doctest ListFilter
 
-  test "greets the world" do
-    assert ListFilter.hello() == :world
+  describe "call/1" do
+    list = ["1", "3", "6", "43", "banana", "6", "abc"]
+
+    response = ListFilter.call(list)
+
+    expected_response = 3
+
+    assert expected_response == response
   end
 end
