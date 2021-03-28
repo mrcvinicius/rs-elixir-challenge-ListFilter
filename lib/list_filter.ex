@@ -2,19 +2,22 @@ defmodule ListFilter do
   require Integer
 
   def call(list) do
-    Enum.count(
-      Enum.flat_map(list, fn string ->
-        case Integer.parse(string) do
-          {int, _rest} ->
-            case Integer.is_odd(int) do
-              true -> [int]
-              false -> []
-            end
+    list
+    |> Enum.flat_map(&parse_integer/1)
+    |> Enum.count()
+  end
 
-          :error ->
-            []
-        end
-      end)
-    )
+  defp parse_integer(element) do
+    case Integer.parse(element) do
+      {int, _rest} -> its_is_odd(int)
+      :error -> []
+    end
+  end
+
+  defp its_is_odd(num) do
+    case Integer.is_odd(num) do
+      true -> [num]
+      false -> []
+    end
   end
 end
